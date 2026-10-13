@@ -1,0 +1,6 @@
+/config.json
+/bin/
+/coverage.out
+*.log
+.env
+__pycache__/

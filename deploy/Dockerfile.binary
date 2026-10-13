@@ -1,0 +1,7 @@
+# Build on the deployment host from a previously tested native-architecture binary.
+FROM alpine:3.23
+RUN adduser -D -u 65532 -h /app app
+WORKDIR /app
+COPY connectivityd /app/connectivityd
+USER 65532:65532
+ENTRYPOINT ["/app/connectivityd"]

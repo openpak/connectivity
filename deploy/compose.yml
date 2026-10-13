@@ -1,0 +1,13 @@
+services:
+  connectivity:
+    build:
+      context: ..
+    restart: unless-stopped
+    network_mode: host
+    read_only: true
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - ../config.json:/app/config.json:ro
+    stop_grace_period: 10s

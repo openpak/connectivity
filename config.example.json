@@ -1,0 +1,18 @@
+{
+  "listen": "127.0.0.1:20150",
+  "backend_tokens": {
+    "switch-nex": "REPLACE_WITH_A_RANDOM_BACKEND_TOKEN_AT_LEAST_32_BYTES",
+    "npln": "REPLACE_WITH_A_DIFFERENT_RANDOM_BACKEND_TOKEN_32_BYTES",
+    "demonware": "REPLACE_WITH_ANOTHER_RANDOM_BACKEND_TOKEN_32_BYTES"
+  },
+  "resources": [],
+  "relay_bind_ip": "0.0.0.0",
+  "relay_public_ip": "203.0.113.10",
+  "relay_port_min": 22900,
+  "relay_port_max": 22979,
+  "max_participants_per_backend": 1024,
+  "max_relays_per_backend": 64,
+  "relay_bytes_per_second": 1048576,
+  "max_ttl_seconds": 3600,
+  "allow_private_endpoints": false
+}
