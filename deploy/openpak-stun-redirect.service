@@ -1,0 +1,13 @@
+[Unit]
+Description=OpenPak classic STUN redirect (cookie-less UDP 3478 to connectivity)
+After=network-pre.target
+Before=network.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/sbin/nft -f /etc/openpak/stun-redirect.nft
+ExecStop=/usr/sbin/nft delete table ip openpak_stun
+
+[Install]
+WantedBy=multi-user.target

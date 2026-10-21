@@ -68,9 +68,16 @@ func run(path string) error {
 	if err != nil {
 		return fmt.Errorf("cannot bind HTTP listener")
 	}
-	httpServer := &http.Server{Handler: s.Handler(), ReadHeaderTimeout: 3 * time.Second, ReadTimeout: 5 * time.Second, WriteTimeout: 5 * time.Second, IdleTimeout: 30 * time.Second, MaxHeaderBytes: 8192}
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer stop()
+	if cfg.StunListen != "" {
+		st, err := connectivity.StartSTUN(ctx, cfg)
+		if err != nil {
+			return err
+		}
+		defer st.Close()
+	}
+	httpServer := &http.Server{Handler: s.Handler(), ReadHeaderTimeout: 3 * time.Second, ReadTimeout: 5 * time.Second, WriteTimeout: 5 * time.Second, IdleTimeout: 30 * time.Second, MaxHeaderBytes: 8192}
 	result := make(chan error, 1)
 	go func() { result <- httpServer.Serve(ln) }()
 	log.Print("connectivity service ready")

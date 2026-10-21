@@ -94,4 +94,8 @@ type Config struct {
 	RelayBytesPerSecond       int               `json:"relay_bytes_per_second"`
 	MaxTTLSeconds             int               `json:"max_ttl_seconds"`
 	AllowPrivateEndpoints     bool              `json:"allow_private_endpoints"`
+	StunListen                string            `json:"stun_listen,omitempty"`      // empty = classic STUN responder off
+	StunPublicIP              string            `json:"stun_public_ip,omitempty"`   // advertised in replies
+	StunPublicPort            int               `json:"stun_public_port,omitempty"` // advertised primary port if redirected; default bound port
+	StunAltPort               int               `json:"stun_alt_port,omitempty"`    // alternate port, bound on the stun_listen host
 }

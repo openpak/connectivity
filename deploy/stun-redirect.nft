@@ -1,0 +1,12 @@
+# Send classic (cookie-less) STUN to the connectivity responder; RFC 5389
+# packets (magic cookie 0x2112A442 at UDP payload bytes 4-7 = bit offset 96
+# from the UDP header start) keep reaching coturn on 3478 unchanged.
+# 49161 is the responder's local port; it sits inside the open 49152-65535 range.
+table ip openpak_stun
+delete table ip openpak_stun
+table ip openpak_stun {
+	chain prerouting {
+		type nat hook prerouting priority dstnat; policy accept;
+		udp dport 3478 @th,96,32 != 0x2112a442 redirect to :49161
+	}
+}

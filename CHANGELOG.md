@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-10-21 (v0.2.0)
+
+- Add an optional classic (RFC 3489, cookie-less) STUN responder (`stun_listen`,
+  `stun_public_ip`, `stun_public_port`, `stun_alt_port`; off by default) so the
+  PS3 firmware NAT check (SceNetStun) passes with "NAT Type: Type 2". Binding
+  requests are answered on a primary and an alternate UDP port with MAPPED-,
+  SOURCE- and CHANGED-ADDRESS; change-port is honoured, change-IP cannot be (one
+  public IP). Bounded reads, per-source rate limit, malformed packets dropped.
+  Host rule `deploy/stun-redirect.nft` sends only cookie-less UDP 3478 to it;
+  RFC 5389 traffic still reaches coturn unchanged. Replaces the hand-run
+  stopgap on the production box.
+
 ## 2026-10-13
 
 - Move production connectivity to host networking for source-preserving native

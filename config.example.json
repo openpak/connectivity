@@ -14,5 +14,9 @@
   "max_relays_per_backend": 64,
   "relay_bytes_per_second": 1048576,
   "max_ttl_seconds": 3600,
-  "allow_private_endpoints": false
+  "allow_private_endpoints": false,
+  "stun_listen": "0.0.0.0:49161",
+  "stun_public_ip": "203.0.113.10",
+  "stun_public_port": 3478,
+  "stun_alt_port": 49160
 }

@@ -63,6 +63,31 @@ participant lease, using coturn's REST HMAC-SHA1 format.
 only for a trusted local/test deployment. LAN candidates remain representable
 without enabling it; they are never automatically chosen as public relay peers.
 
+## Classic STUN responder (PS3 NAT check)
+
+The PS3 firmware's NAT check sends a classic RFC 3489 Binding Request (no magic
+cookie) to `us.np.stun.playstation.net:3478`; coturn ignores it. Set
+`stun_listen` (local bind, e.g. `0.0.0.0:49161`), `stun_public_ip`,
+`stun_alt_port` (alternate port, bound on the same host; it must be reachable
+from the internet) and optionally `stun_public_port` (advertised primary port
+when the host redirects 3478 to a different local port). Leave `stun_listen`
+empty to disable it. Replies echo the transaction id and carry MAPPED-ADDRESS,
+SOURCE-ADDRESS and CHANGED-ADDRESS, without MESSAGE-INTEGRITY (the firmware does
+not check it). CHANGE-REQUEST change-port is answered from the other port;
+change-IP cannot be honoured with one public IP (result: Type 2).
+
+coturn stays on UDP 3478. RFC 5389 packets carry the magic cookie 0x2112A442 at
+payload bytes 4-7, so a host nft rule redirects only cookie-less packets
+(`deploy/stun-redirect.nft`, loaded at boot by `deploy/openpak-stun-redirect.service`
+from `/etc/openpak/`):
+
+```
+udp dport 3478 @th,96,32 != 0x2112a442 redirect to :49161
+```
+
+Verify after changes: an RFC 5389 request to 3478 must still be answered by
+coturn (XOR-MAPPED-ADDRESS) and `tools/probe_deployed_turn.py` must pass.
+
 ## API and adapter flow
 
 All `/v1` calls require `Authorization: Bearer <backend token>`. JSON requests
