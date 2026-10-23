@@ -11,7 +11,7 @@ See [deployment and testing status](docs/npln-deployment-2026-10-13.md).
 This service preserves separate players behind a shared public IP. It does not
 identify a player from an IP or automatically make stock games speak a new transport.
 Game backends authenticate players and translate their native protocols at the API
-boundary. The cross-family plan is [shared-connectivity-plan.md](../../docs/shared-connectivity-plan.md).
+boundary. The cross-family plan is internal research notes.
 
 ## What runs
 
