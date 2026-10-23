@@ -88,6 +88,34 @@ udp dport 3478 @th,96,32 != 0x2112a442 redirect to :49161
 Verify after changes: an RFC 5389 request to 3478 must still be answered by
 coturn (XOR-MAPPED-ADDRESS) and `tools/probe_deployed_turn.py` must pass.
 
+Production (deployed 2026-10-21, re-verified 2026-10-23 after a
+`systemctl --user restart openpak-connectivity`): local image
+`localhost/openpak-connectivity:20261021-stun` (built on the box, not from CI),
+config `~/openpak/deploy/connectivity/releases/20261021-stun/config.json`
+(`stun_listen 0.0.0.0:49161`, `stun_alt_port 49160`, `stun_public_port 3478`).
+The nft table comes from the root unit `openpak-stun-redirect.service`, which
+loads `/etc/openpak/stun-redirect.nft`. It is separate from the iptables-nft
+tables that netfilter-persistent restores. 49160/49161 already pass the host
+INPUT rule and the Oracle security list (49152-65535). A real reboot has not been tested.
+
+Caveat: coturn's relay range (`--min-port=49152`) includes 49160/49161. A
+failed bind makes connectivityd exit, and the API goes down with it. If coturn
+happens to hold one of those ports when connectivityd restarts, the unit
+restart-loops until coturn frees the port. This is unlikely, but check it
+with `ss -ulnp | grep -E ':4916[01] '` if the unit will not start.
+
+Rollback on the box:
+
+```sh
+sudo systemctl disable --now openpak-stun-redirect.service   # ExecStop deletes table ip openpak_stun
+sudo rm /etc/systemd/system/openpak-stun-redirect.service /etc/openpak/stun-redirect.nft; sudo systemctl daemon-reload
+cp ~/openpak/deploy/connectivity/releases/20261021-stun/openpak-connectivity.container.before \
+   ~/.config/containers/systemd/openpak-connectivity.container
+systemctl --user daemon-reload && systemctl --user restart openpak-connectivity   # back to 20261013-npln
+```
+
+Step 1 alone already restores the coturn-only behaviour on 3478.
+
 ## API and adapter flow
 
 All `/v1` calls require `Authorization: Bearer <backend token>`. JSON requests

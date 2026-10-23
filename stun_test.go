@@ -100,6 +100,37 @@ func TestSTUNPlainRequest(t *testing.T) {
 	}
 }
 
+// The exact 56-byte request captured from the PS3 on the box (2026-10-21):
+// classic header, 0x0021 (empty), USERNAME "00000001" (4 bytes), MESSAGE-INTEGRITY.
+// The same packet with the RFC 5389 cookie belongs to coturn and must not be answered.
+func TestSTUNCapturedPS3Request(t *testing.T) {
+	s := startTestSTUN(t)
+	a := s.Addrs()
+	mi := make([]byte, 20)
+	for i := range mi {
+		mi[i] = byte(0xa0 + i)
+	}
+	req := classic(0x40, append([]byte{0, 0x21, 0, 0, 0, 6, 0, 4, 0, 0, 0, 1, 0, 8, 0, 20}, mi...)...)
+	if len(req) != 56 {
+		t.Fatalf("captured shape is 56 bytes, built %d", len(req))
+	}
+	out, from := exchange(t, a[0], req, true)
+	out, cport := out[:len(out)-2], binary.BigEndian.Uint16(out[len(out)-2:])
+	if from.Port != a[0].Port || binary.BigEndian.Uint16(out) != 0x0101 || string(out[4:20]) != string(req[4:20]) {
+		t.Fatalf("bad reply header % x from %v", out[:20], from)
+	}
+	m := attrs(t, out)
+	if len(m) != 3 || m[1] == nil || m[4] == nil || m[5] == nil {
+		t.Fatalf("want exactly MAPPED, SOURCE, CHANGED; got % x", out[20:])
+	}
+	if binary.BigEndian.Uint16(m[1][2:]) != cport || int(binary.BigEndian.Uint16(m[4][2:])) != a[0].Port || int(binary.BigEndian.Uint16(m[5][2:])) != a[1].Port {
+		t.Fatalf("bad addresses % x", out[20:])
+	}
+	rfc5389 := append([]byte(nil), req...)
+	binary.BigEndian.PutUint32(rfc5389[4:], stunCookie)
+	exchange(t, a[0], rfc5389, false)
+}
+
 func TestSTUNChangePortAndChangeIP(t *testing.T) {
 	s := startTestSTUN(t)
 	a := s.Addrs()
