@@ -4,3 +4,4 @@
 *.log
 .env
 __pycache__/
+next-session.md
