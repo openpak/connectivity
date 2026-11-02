@@ -30,9 +30,7 @@ GOWORK=off go run ./cmd/connectivityd -config ./config.json
 ## Docs
 
 - [Protocol](docs/protocol.md)
-- [Evidence](docs/evidence.md)
 - [Deploy](docs/deploy.md)
-- [Notes](docs/notes.md)
 
 ## Licence
 

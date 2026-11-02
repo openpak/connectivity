@@ -81,3 +81,11 @@ CGO_ENABLED=0 GOOS=linux GOARCH=arm64 GOWORK=off go build ./cmd/connectivityd
 podman build -t localhost/openpak-connectivity:local .
 python3 tools/smoke_container.py
 ```
+
+## Production and gotchas
+
+Production runs a local image, `localhost/openpak-connectivity:20261021-stun` (built on the box, not from CI), with config `~/openpak/deploy/connectivity/releases/20261021-stun/config.json` (`stun_listen 0.0.0.0:49161`, `stun_alt_port 49160`, `stun_public_port 3478`). The nft table comes from the root unit `openpak-stun-redirect.service`, loading `/etc/openpak/stun-redirect.nft`, separate from the iptables-nft tables netfilter-persistent restores. 49160/49161 already pass the host INPUT rule and the Oracle security list (49152-65535).
+
+coturn's relay range (`--min-port=49152`) includes 49160/49161. A failed bind makes connectivityd exit, and the unit restart-loops until coturn frees the port. If it will not start, check `ss -ulnp | grep -E ':4916[01] '`.
+
+Verify after changes: an RFC 5389 request to 3478 must still be answered by coturn (XOR-MAPPED-ADDRESS) and `tools/probe_deployed_turn.py` must pass. The tests do not certify router NAT behaviour or real games.

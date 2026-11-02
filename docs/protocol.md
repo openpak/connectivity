@@ -84,3 +84,7 @@ decoder or probe observation endpoint. An adapter must have a way to establish
 destination-specific proof before using native relays; unsupported stock clients
 must stay unsupported rather than fall back to IP-only learning. UDP endpoint
 pinning also does not replace game-level authentication against on-path spoofing.
+
+## State and limits
+
+State is transient: a restart loses leases and native relay allocations and clients must register again. Existing TURN credentials stay valid at coturn until their encoded expiry even after release or restart; immediate revocation needs node-side session management, which this service does not have. There is no fleet-wide TURN secret and no automatic cross-region native-relay orchestration. Budgets are per backend and relay, so adapters must enforce per-player and room limits before spending their backend quota. The service preserves separate players behind a shared public IP; it does not identify a player from an IP, and game backends authenticate players and translate native protocols at the API boundary.
