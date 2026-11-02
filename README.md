@@ -33,10 +33,6 @@ GOWORK=off go run ./cmd/connectivityd -config ./config.json
 - [Evidence](docs/evidence.md)
 - [Deploy](docs/deploy.md)
 - [Notes](docs/notes.md)
-- [NPLN rollout](docs/npln-deployment-2026-10-13.md)
-- [Remaining game acceptance](docs/remaining-game-tests-2026-10-13.md)
-- [Switch NEX Mario Kart 8 Deluxe canary](docs/switch-nex-canary-2026-10-13.md)
-- [Switch NEX sequential rollout](docs/switch-nex-rollout-2026-10-13.md)
 
 ## Licence
 

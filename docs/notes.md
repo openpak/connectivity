@@ -12,12 +12,6 @@ identify a player from an IP or automatically make stock games speak a new trans
 Game backends authenticate players and translate their native protocols at the API
 boundary. The cross-family plan is internal research notes.
 
-## Status
-
-**Status: deployed 2026-10-13; all 18 running NPLN title services integrated.**
-Infrastructure and live TURN probes pass; game acceptance starts with Stardew Valley.
-See [deployment and testing status](npln-deployment-2026-10-13.md).
-
 ## What runs
 
 - Participant leases keyed by backend namespace, title, room, player, connection
@@ -31,15 +25,14 @@ See [deployment and testing status](npln-deployment-2026-10-13.md).
 
 ## Production
 
-Production (deployed 2026-10-21, re-verified 2026-10-23 after a
-`systemctl --user restart openpak-connectivity`): local image
+Production: local image
 `localhost/openpak-connectivity:20261021-stun` (built on the box, not from CI),
 config `~/openpak/deploy/connectivity/releases/20261021-stun/config.json`
 (`stun_listen 0.0.0.0:49161`, `stun_alt_port 49160`, `stun_public_port 3478`).
 The nft table comes from the root unit `openpak-stun-redirect.service`, which
 loads `/etc/openpak/stun-redirect.nft`. It is separate from the iptables-nft
 tables that netfilter-persistent restores. 49160/49161 already pass the host
-INPUT rule and the Oracle security list (49152-65535). A real reboot has not been tested.
+INPUT rule and the Oracle security list (49152-65535).
 
 ## Caveats
 
