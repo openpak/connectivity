@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased: release workflow and container build
+
+- Add a release workflow publishing the image to ghcr.io on v*.*.* tags.
+
 ## 2026-10-21 (v0.2.0)
 
 - Add an optional classic (RFC 3489, cookie-less) STUN responder (`stun_listen`,
