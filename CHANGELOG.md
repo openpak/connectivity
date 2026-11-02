@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased: release workflow and container build
+## v0.3.0 — 2026-11-02
+
+- Release workflow publishing to ghcr.io; replaces the hand-built production image.
 
 - Add a release workflow publishing the image to ghcr.io on v*.*.* tags.
 
