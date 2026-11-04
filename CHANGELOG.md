@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.1 — 2026-11-04
+
+- docs: README + protocol + deploy only; PRDs move to openpak/prds
+
 ## v0.3.0 — 2026-11-02
 
 - Release workflow publishing to ghcr.io; replaces the hand-built production image.
