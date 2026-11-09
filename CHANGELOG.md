@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.6 — 2026-11-09
+
+- deploy/hostnet: host-network units start after the loopback bridge (boot order) (prds#166)
+
 ## v0.3.5 — 2026-11-09
 
 - deploy/hostnet: photon on the host network (health on 25080, `openpak-photon:8080` via the bridge) (prds#166)
