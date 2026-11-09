@@ -68,6 +68,20 @@ host (healthz, APIs). Only the UDP ports it already had ACCEPT rules for are rea
 Start them with `Network=host` and the `40-hostnet.conf` drop-in, never `PublishPort=…/udp` on
 `openpak.network`. That loses the player's address.
 
+## A loop entry that becomes the service itself
+
+When the service a bridge loop entry points at moves to the host (nn-friends' gRPC 20061), the
+bridge's `127.0.0.1:<port>` publish and the service would both want the port. Move the entry
+from `loop` to `alias_tcp`, then: `migrate.sh`, `systemctl --user stop` the service, deploy and
+restart the bridge, start the service (about 20 s of downtime for that service).
+
+## Not moved, on purpose
+
+- wfc-qr2, wfc-natneg: consoles' 27900/27901 are REDIRECTed to `openpak-wfc-front` (pasta, PROXY
+  v2), which already hands them the real address; their direct publish is shadowed.
+- photon: HTTP 8080 collides with openpak-edge's `10.0.0.249:8080` on the host, and Traefik/website
+  call it on 8080/9093. Photon relays all traffic through the server. Its own step, pending.
+
 ## Rollback (one unit)
 
 ```sh

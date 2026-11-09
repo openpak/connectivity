@@ -19,10 +19,6 @@ tcp:
       entryPoints: [p20051]
       rule: HostSNI(`*`)
       service: p20051
-    p20061:
-      entryPoints: [p20061]
-      rule: HostSNI(`*`)
-      service: p20061
     p20131:
       entryPoints: [p20131]
       rule: HostSNI(`*`)
@@ -39,6 +35,18 @@ tcp:
       entryPoints: [p20251]
       rule: HostSNI(`*`)
       service: p20251
+    p22621:
+      entryPoints: [p22621]
+      rule: HostSNI(`*`)
+      service: p22621
+    p23530:
+      entryPoints: [p23530]
+      rule: HostSNI(`*`)
+      service: p23530
+    p26111:
+      entryPoints: [p26111]
+      rule: HostSNI(`*`)
+      service: p26111
     a22855:
       entryPoints: [a22855]
       rule: HostSNI(`*`)
@@ -71,6 +79,14 @@ tcp:
       entryPoints: [a22660]
       rule: HostSNI(`*`)
       service: a22660
+    a20260:
+      entryPoints: [a20260]
+      rule: HostSNI(`*`)
+      service: a20260
+    a20061:
+      entryPoints: [a20061]
+      rule: HostSNI(`*`)
+      service: a20061
   services:
     p5432:
       loadBalancer:
@@ -88,10 +104,6 @@ tcp:
       loadBalancer:
         servers:
         - address: openpak-nn-account:20051
-    p20061:
-      loadBalancer:
-        servers:
-        - address: openpak-nn-friends:20061
     p20131:
       loadBalancer:
         servers:
@@ -108,6 +120,18 @@ tcp:
       loadBalancer:
         servers:
         - address: openpak-matchmaking:20251
+    p22621:
+      loadBalancer:
+        servers:
+        - address: openpak-eos:22621
+    p23530:
+      loadBalancer:
+        servers:
+        - address: openpak-fall-guys:23530
+    p26111:
+      loadBalancer:
+        servers:
+        - address: openpak-xb-account:26111
     a22855:
       loadBalancer:
         servers:
@@ -140,6 +164,14 @@ tcp:
       loadBalancer:
         servers:
         - address: host.containers.internal:22660
+    a20260:
+      loadBalancer:
+        servers:
+        - address: host.containers.internal:20260
+    a20061:
+      loadBalancer:
+        servers:
+        - address: host.containers.internal:20061
 http:
   routers:
     rk-miracle-cure:

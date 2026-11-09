@@ -7,8 +7,6 @@ entryPoints:
     address: ":20050"
   p20051:
     address: ":20051"
-  p20061:
-    address: ":20061"
   p20131:
     address: ":20131"
   p20221:
@@ -17,6 +15,12 @@ entryPoints:
     address: ":20231"
   p20251:
     address: ":20251"
+  p22621:
+    address: ":22621"
+  p23530:
+    address: ":23530"
+  p26111:
+    address: ":26111"
   a22855:
     address: ":22855"
   a22853:
@@ -33,6 +37,10 @@ entryPoints:
     address: ":22650"
   a22660:
     address: ":22660"
+  a20260:
+    address: ":20260"
+  a20061:
+    address: ":20061"
   rankings:
     address: ":9090"
 providers:

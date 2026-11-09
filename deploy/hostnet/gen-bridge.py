@@ -3,12 +3,15 @@ import sys
 out = sys.argv[1]
 # host-network services reach these on 127.0.0.1 at the same port (published on loopback)
 loop = [(5432,"openpak-postgres:5432"),(9000,"openpak-minio:9000"),(20050,"openpak-nn-account:20050"),
-        (20051,"openpak-nn-account:20051"),(20061,"openpak-nn-friends:20061"),(20131,"openpak-chat:20131"),
-        (20221,"openpak-achievements:20221"),(20231,"openpak-title-storage:20231"),(20251,"openpak-matchmaking:20251")]
+        (20051,"openpak-nn-account:20051"),(20131,"openpak-chat:20131"),
+        (20221,"openpak-achievements:20221"),(20231,"openpak-title-storage:20231"),(20251,"openpak-matchmaking:20251"),
+        (22621,"openpak-eos:22621"),(23530,"openpak-fall-guys:23530"),(26111,"openpak-xb-account:26111")]
 # bridge callers of a host-network service by name: alias, port on the bridge -> port on the host
 alias_tcp = [("openpak-mario-kart-7",22855,22738),("openpak-mario-kart-8",22853,22853),("openpak-super-mario-maker",22584,22584),
              ("openpak-monster-hunter-generations-ultimate",22120,22120),("openpak-monster-hunter-generations-ultimate",22122,22122),
-             ("openpak-among-us",22600,22600),("openpak-playfab",22650,22650),("openpak-spelunky2",22660,22660)]
+             ("openpak-among-us",22600,22600),("openpak-playfab",22650,22650),("openpak-spelunky2",22660,22660),
+             ("openpak-terraria-core",20260,20260),
+             ("openpak-nn-friends",20061,20061)]
 # website rankings reader: http://<alias>:9090 -> the service's own RANKINGS_ADDR port on the host
 rank = [l.split() for l in open(__file__.rsplit("/", 1)[0] + "/rankings-ports.txt") if l.strip() and "BUSY" not in l]
 rank += [["openpak-mario-kart-7","22737"],["openpak-mario-kart-8","22857"],["openpak-super-mario-maker","22587"],["openpak-spelunky2","22667"]]

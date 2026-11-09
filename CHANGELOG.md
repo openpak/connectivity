@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.4 — 2026-11-09
+
+- deploy/hostnet: eos/fall-guys/xb-account on loopback; terraria-core and nn-friends reached by alias (nn-friends gRPC moved from a loopback publish to an alias); README: cutover order, what stays put (prds#166)
+
 ## v0.3.3 — 2026-11-09
 
 - deploy/hostnet: bridge generator; chat/achievements/title-storage gRPC on loopback; aliases so bridge callers (mktv, nx-baas, website, mario-maker) still reach moved services by name; `migrate.sh` takes per-host ports (prds#166)
