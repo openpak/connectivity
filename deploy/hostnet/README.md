@@ -24,7 +24,8 @@ For console UDP services this repo uses `Network=host`.
 | `openpak-hostnet-bridge.container` | `~/.config/containers/systemd/` | Traefik on `openpak.network` publishing the TCP services that have no loopback port of their own (Postgres 5432, MinIO 9000, nn-account 20050/20051, nn-friends gRPC 20061) on `127.0.0.1`, **at the same port number** |
 | `bridge/traefik.yml`, `bridge/dynamic.yml` | `~/openpak/deploy/hostnet/bridge/` | its entrypoints and TCP routers (one per port, plus matchmaking gRPC 20251), and the reverse direction below |
 | `hostnet-addhost.conf` | `~/openpak/deploy/hostnet/`, symlinked as `<unit>.container.d/40-hostnet.conf` | `AddHost=openpak-<svc>:127.0.0.1` for every service reachable on loopback at its own port, so the names and ports in the shared `.env` keep working unchanged |
-| `migrate.sh` | `~/openpak/deploy/hostnet/` | moves one unit: backs up the quadlet and drop-ins to `~/openpak/deploy/backups/hostnet-166/<unit>-<UTC>`, swaps `Network=openpak.network`/`IP=`/`PublishPort=` for `Network=host`, optionally pins `NEX_HTTP_ADDR=127.0.0.1:<port>`, links the drop-in |
+| `gen-bridge.py`, `rankings-ports.txt` | (run locally) | generate the three bridge files: edit the `loop`/`alias_tcp` lists or the rankings ports, run `python3 gen-bridge.py <dir>`, copy to the box, restart the bridge (DB blip ~3 s for every host-network unit) |
+| `migrate.sh` | `~/openpak/deploy/hostnet/` | `migrate.sh <unit> [healthz-port|-] [KEY=VALUE ...]` moves one unit: backs up the quadlet and drop-ins to `~/openpak/deploy/backups/hostnet-166/<unit>-<UTC>`, swaps `Network=openpak.network`/`IP=`/`PublishPort=` for `Network=host`, optionally pins `NEX_HTTP_ADDR=127.0.0.1:<port>`, links the drop-in |
 
 Names in the drop-in must be reachable on `127.0.0.1` at the port the `.env` uses: either the
 service publishes `127.0.0.1:<port>:<port>` itself (account 20001, website, saves, mods, nx-baas
