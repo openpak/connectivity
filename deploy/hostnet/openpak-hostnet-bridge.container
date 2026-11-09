@@ -1,0 +1,43 @@
+[Unit]
+Description=Loopback bridge for host-network console UDP services (prds#166): openpak.network TCP services on 127.0.0.1 at the same port, and the titles' names back on openpak.network
+Wants=openpak-postgres.service openpak-minio.service openpak-nn-account.service openpak-nn-friends.service
+After=openpak-postgres.service openpak-minio.service
+
+[Container]
+ContainerName=openpak-hostnet-bridge
+Image=docker.io/library/traefik:v3.3
+Annotation=run.oci.keyring=false
+Network=openpak.network
+NetworkAlias=openpak-miracle-cure
+NetworkAlias=openpak-monster-hunter-4-ultimate
+NetworkAlias=openpak-monster-hunter-xx
+NetworkAlias=openpak-super-smash-bros-3ds
+NetworkAlias=openpak-dr-luigi
+NetworkAlias=openpak-pikmin-3
+NetworkAlias=openpak-pokken-tournament
+NetworkAlias=openpak-puyo-puyo-tetris
+NetworkAlias=openpak-splatoon
+NetworkAlias=openpak-super-smash-bros-wiiu
+NetworkAlias=openpak-ice-station-z
+NetworkAlias=openpak-monster-hunter-4
+NetworkAlias=openpak-monster-hunter-stories
+NetworkAlias=openpak-puyo-puyo-20th
+NetworkAlias=openpak-resident-evil-the-mercenaries-3d
+NetworkAlias=openpak-yo-kai-watch-2
+NetworkAlias=openpak-sonic-all-stars-racing-transformed-wiiu
+NetworkAlias=openpak-terraria-wiiu
+NetworkAlias=openpak-tetris-axis
+PublishPort=127.0.0.1:5432:5432
+PublishPort=127.0.0.1:9000:9000
+PublishPort=127.0.0.1:20050:20050
+PublishPort=127.0.0.1:20051:20051
+PublishPort=127.0.0.1:20061:20061
+PublishPort=127.0.0.1:20251:20251
+Volume=%h/openpak/deploy/hostnet/bridge:/etc/traefik:ro,Z
+Exec=--configFile=/etc/traefik/traefik.yml
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

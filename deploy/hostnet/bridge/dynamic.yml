@@ -1,0 +1,209 @@
+# prds#166. tcp: host-network services reach these openpak.network services on 127.0.0.1 at the same port.
+# http: bridge containers still call host-network titles by name (NetworkAlias on this container);
+# the website's rankings reader uses http://openpak-<title>:9090, sent to the title's own port on the host.
+tcp:
+  routers:
+    p5432:
+      entryPoints: [p5432]
+      rule: HostSNI(`*`)
+      service: p5432
+    p9000:
+      entryPoints: [p9000]
+      rule: HostSNI(`*`)
+      service: p9000
+    p20050:
+      entryPoints: [p20050]
+      rule: HostSNI(`*`)
+      service: p20050
+    p20051:
+      entryPoints: [p20051]
+      rule: HostSNI(`*`)
+      service: p20051
+    p20061:
+      entryPoints: [p20061]
+      rule: HostSNI(`*`)
+      service: p20061
+    p20251:
+      entryPoints: [p20251]
+      rule: HostSNI(`*`)
+      service: p20251
+  services:
+    p5432:
+      loadBalancer:
+        servers:
+        - address: openpak-postgres:5432
+    p9000:
+      loadBalancer:
+        servers:
+        - address: openpak-minio:9000
+    p20050:
+      loadBalancer:
+        servers:
+        - address: openpak-nn-account:20050
+    p20051:
+      loadBalancer:
+        servers:
+        - address: openpak-nn-account:20051
+    p20061:
+      loadBalancer:
+        servers:
+        - address: openpak-nn-friends:20061
+    p20251:
+      loadBalancer:
+        servers:
+        - address: openpak-matchmaking:20251
+http:
+  routers:
+    rk-miracle-cure:
+      entryPoints: [rankings]
+      rule: Host(`openpak-miracle-cure`)
+      service: rk-miracle-cure
+    rk-monster-hunter-4-ultimate:
+      entryPoints: [rankings]
+      rule: Host(`openpak-monster-hunter-4-ultimate`)
+      service: rk-monster-hunter-4-ultimate
+    rk-monster-hunter-xx:
+      entryPoints: [rankings]
+      rule: Host(`openpak-monster-hunter-xx`)
+      service: rk-monster-hunter-xx
+    rk-super-smash-bros-3ds:
+      entryPoints: [rankings]
+      rule: Host(`openpak-super-smash-bros-3ds`)
+      service: rk-super-smash-bros-3ds
+    rk-dr-luigi:
+      entryPoints: [rankings]
+      rule: Host(`openpak-dr-luigi`)
+      service: rk-dr-luigi
+    rk-pikmin-3:
+      entryPoints: [rankings]
+      rule: Host(`openpak-pikmin-3`)
+      service: rk-pikmin-3
+    rk-pokken-tournament:
+      entryPoints: [rankings]
+      rule: Host(`openpak-pokken-tournament`)
+      service: rk-pokken-tournament
+    rk-puyo-puyo-tetris:
+      entryPoints: [rankings]
+      rule: Host(`openpak-puyo-puyo-tetris`)
+      service: rk-puyo-puyo-tetris
+    rk-splatoon:
+      entryPoints: [rankings]
+      rule: Host(`openpak-splatoon`)
+      service: rk-splatoon
+    rk-super-smash-bros-wiiu:
+      entryPoints: [rankings]
+      rule: Host(`openpak-super-smash-bros-wiiu`)
+      service: rk-super-smash-bros-wiiu
+    rk-ice-station-z:
+      entryPoints: [rankings]
+      rule: Host(`openpak-ice-station-z`)
+      service: rk-ice-station-z
+    rk-monster-hunter-4:
+      entryPoints: [rankings]
+      rule: Host(`openpak-monster-hunter-4`)
+      service: rk-monster-hunter-4
+    rk-monster-hunter-stories:
+      entryPoints: [rankings]
+      rule: Host(`openpak-monster-hunter-stories`)
+      service: rk-monster-hunter-stories
+    rk-puyo-puyo-20th:
+      entryPoints: [rankings]
+      rule: Host(`openpak-puyo-puyo-20th`)
+      service: rk-puyo-puyo-20th
+    rk-resident-evil-the-mercenaries-3d:
+      entryPoints: [rankings]
+      rule: Host(`openpak-resident-evil-the-mercenaries-3d`)
+      service: rk-resident-evil-the-mercenaries-3d
+    rk-yo-kai-watch-2:
+      entryPoints: [rankings]
+      rule: Host(`openpak-yo-kai-watch-2`)
+      service: rk-yo-kai-watch-2
+    rk-sonic-all-stars-racing-transformed-wiiu:
+      entryPoints: [rankings]
+      rule: Host(`openpak-sonic-all-stars-racing-transformed-wiiu`)
+      service: rk-sonic-all-stars-racing-transformed-wiiu
+    rk-terraria-wiiu:
+      entryPoints: [rankings]
+      rule: Host(`openpak-terraria-wiiu`)
+      service: rk-terraria-wiiu
+    rk-tetris-axis:
+      entryPoints: [rankings]
+      rule: Host(`openpak-tetris-axis`)
+      service: rk-tetris-axis
+  services:
+    rk-miracle-cure:
+      loadBalancer:
+        servers:
+        - url: http://host.containers.internal:22447
+    rk-monster-hunter-4-ultimate:
+      loadBalancer:
+        servers:
+        - url: http://host.containers.internal:22457
+    rk-monster-hunter-xx:
+      loadBalancer:
+        servers:
+        - url: http://host.containers.internal:22477
+    rk-super-smash-bros-3ds:
+      loadBalancer:
+        servers:
+        - url: http://host.containers.internal:22507
+    rk-dr-luigi:
+      loadBalancer:
+        servers:
+        - url: http://host.containers.internal:22527
+    rk-pikmin-3:
+      loadBalancer:
+        servers:
+        - url: http://host.containers.internal:22537
+    rk-pokken-tournament:
+      loadBalancer:
+        servers:
+        - url: http://host.containers.internal:22547
+    rk-puyo-puyo-tetris:
+      loadBalancer:
+        servers:
+        - url: http://host.containers.internal:22557
+    rk-splatoon:
+      loadBalancer:
+        servers:
+        - url: http://host.containers.internal:22567
+    rk-super-smash-bros-wiiu:
+      loadBalancer:
+        servers:
+        - url: http://host.containers.internal:22597
+    rk-ice-station-z:
+      loadBalancer:
+        servers:
+        - url: http://host.containers.internal:22717
+    rk-monster-hunter-4:
+      loadBalancer:
+        servers:
+        - url: http://host.containers.internal:22757
+    rk-monster-hunter-stories:
+      loadBalancer:
+        servers:
+        - url: http://host.containers.internal:22767
+    rk-puyo-puyo-20th:
+      loadBalancer:
+        servers:
+        - url: http://host.containers.internal:22787
+    rk-resident-evil-the-mercenaries-3d:
+      loadBalancer:
+        servers:
+        - url: http://host.containers.internal:22797
+    rk-yo-kai-watch-2:
+      loadBalancer:
+        servers:
+        - url: http://host.containers.internal:22837
+    rk-sonic-all-stars-racing-transformed-wiiu:
+      loadBalancer:
+        servers:
+        - url: http://host.containers.internal:22927
+    rk-terraria-wiiu:
+      loadBalancer:
+        servers:
+        - url: http://host.containers.internal:22937
+    rk-tetris-axis:
+      loadBalancer:
+        servers:
+        - url: http://host.containers.internal:22817

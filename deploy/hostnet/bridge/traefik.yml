@@ -1,0 +1,20 @@
+entryPoints:
+  p5432:
+    address: ":5432"
+  p9000:
+    address: ":9000"
+  p20050:
+    address: ":20050"
+  p20051:
+    address: ":20051"
+  p20061:
+    address: ":20061"
+  p20251:
+    address: ":20251"
+  rankings:
+    address: ":9090"
+providers:
+  file:
+    filename: /etc/traefik/dynamic.yml
+log:
+  level: WARN

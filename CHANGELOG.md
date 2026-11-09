@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.2 — 2026-11-09
+
+- deploy/hostnet: console UDP services on `Network=host` so they see players' real addresses (rootless Podman 5.7's published-port forwarder rewrote every source to the container's own address). Loopback bridge, AddHost drop-in, migrate script, recipe and rollback (prds#166)
+
 ## v0.3.1 — 2026-11-04
 
 - docs: README + protocol + deploy only; PRDs move to openpak/prds
