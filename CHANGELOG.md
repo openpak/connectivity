@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.5 — 2026-11-09
+
+- deploy/hostnet: photon on the host network (health on 25080, `openpak-photon:8080` via the bridge) (prds#166)
+
 ## v0.3.4 — 2026-11-09
 
 - deploy/hostnet: eos/fall-guys/xb-account on loopback; terraria-core and nn-friends reached by alias (nn-friends gRPC moved from a loopback publish to an alias); README: cutover order, what stays put (prds#166)

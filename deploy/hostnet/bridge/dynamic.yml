@@ -87,6 +87,10 @@ tcp:
       entryPoints: [a20061]
       rule: HostSNI(`*`)
       service: a20061
+    a8080:
+      entryPoints: [a8080]
+      rule: HostSNI(`*`)
+      service: a8080
   services:
     p5432:
       loadBalancer:
@@ -172,6 +176,10 @@ tcp:
       loadBalancer:
         servers:
         - address: host.containers.internal:20061
+    a8080:
+      loadBalancer:
+        servers:
+        - address: host.containers.internal:25080
 http:
   routers:
     rk-miracle-cure:

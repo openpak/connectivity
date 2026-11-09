@@ -11,7 +11,8 @@ alias_tcp = [("openpak-mario-kart-7",22855,22738),("openpak-mario-kart-8",22853,
              ("openpak-monster-hunter-generations-ultimate",22120,22120),("openpak-monster-hunter-generations-ultimate",22122,22122),
              ("openpak-among-us",22600,22600),("openpak-playfab",22650,22650),("openpak-spelunky2",22660,22660),
              ("openpak-terraria-core",20260,20260),
-             ("openpak-nn-friends",20061,20061)]
+             ("openpak-nn-friends",20061,20061),
+             ("openpak-photon",8080,25080)]
 # website rankings reader: http://<alias>:9090 -> the service's own RANKINGS_ADDR port on the host
 rank = [l.split() for l in open(__file__.rsplit("/", 1)[0] + "/rankings-ports.txt") if l.strip() and "BUSY" not in l]
 rank += [["openpak-mario-kart-7","22737"],["openpak-mario-kart-8","22857"],["openpak-super-mario-maker","22587"],["openpak-spelunky2","22667"]]

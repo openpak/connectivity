@@ -41,6 +41,8 @@ entryPoints:
     address: ":20260"
   a20061:
     address: ":20061"
+  a8080:
+    address: ":8080"
   rankings:
     address: ":9090"
 providers:

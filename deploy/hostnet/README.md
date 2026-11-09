@@ -79,8 +79,11 @@ restart the bridge, start the service (about 20 s of downtime for that service).
 
 - wfc-qr2, wfc-natneg: consoles' 27900/27901 are REDIRECTed to `openpak-wfc-front` (pasta, PROXY
   v2), which already hands them the real address; their direct publish is shadowed.
-- photon: HTTP 8080 collides with openpak-edge's `10.0.0.249:8080` on the host, and Traefik/website
-  call it on 8080/9093. Photon relays all traffic through the server. Its own step, pending.
+
+Photon (moved last): its health/erasure listener (`OPENPAK_Server__HealthPort`, default 8080) cannot
+take 8080 on the host, where openpak-edge's pasta holds `10.0.0.249:8080`. It listens on 25080, and the
+bridge maps `openpak-photon:8080` to it. Traefik's name-server route goes to
+`host.containers.internal:9093`.
 
 ## Rollback (one unit)
 
